@@ -1,0 +1,71 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+      # Runs a set of commands using the runners shell
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
+
+from tkinter import *
+import random
+
+root = Tk()
+canvas = Canvas(root, width=1200, height=800, bg="white")
+canvas.pack()
+lastX, lastY = 0, 0
+colors = ["black", "red", "gold", "orange", "yellow", "lime", "green", "cyan", "blue", "purple"]
+colour = "black"
+
+def store_position(event):
+    global lastX, lastY, colour
+    lastX = event.x
+    lastY = event.y
+
+
+def on_clink(event):
+    store_position(event)
+
+
+def on_drag(event):
+    canvas.create_line(lastX, lastY, event.x, event.y, fill=colour, width=3)
+    canvas.create_line(0, 0, 3000, 2000, fill=random.choice(colors), width=3)
+    store_position(event)
+
+
+canvas.bind("<Button-1>", on_clink)
+canvas.bind("<B1-Motion>", on_drag)
+
+
+def save_to_file(content, filename):
+    with open(filename, 'w') as file:
+        file.write(content)
+
